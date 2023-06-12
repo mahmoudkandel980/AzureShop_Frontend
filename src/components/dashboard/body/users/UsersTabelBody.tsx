@@ -152,7 +152,6 @@ const UsersTabelBody = (props: UsersBodyInterface): JSX.Element => {
                                 )}
                                 deleteBtn
                                 className={`${
-                                    user.role === "moderator" &&
                                     userInfo.role === "moderator" &&
                                     user.email !== userInfo.email &&
                                     "hidden"
