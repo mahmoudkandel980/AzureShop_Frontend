@@ -29,6 +29,7 @@ const EditUserForm = (props: EditUserFormInterface): JSX.Element => {
             <div className='relative w-28 h-28'>
                 {(imageUrl || localImage) && (
                     <img
+                        loading='lazy'
                         className='h-full w-full rounded-full object-contain'
                         src={
                             localImage

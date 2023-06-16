@@ -15,6 +15,7 @@ const OrderShipping = (props: OrderInterface): JSX.Element => {
                     <div className='flex justify-start gap-2 sm:gap-5 items-center pl-5 mb-5'>
                         <div className=''>
                             <img
+                                loading='lazy'
                                 className='h-10 sm:h-14 w-10 sm:w-14 rounded-full object-cover'
                                 src={imageUrlConverter(
                                     "users",

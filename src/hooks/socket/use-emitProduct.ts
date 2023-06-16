@@ -299,7 +299,7 @@ const useEmitProduct = (socket: any) => {
                 if (indexOfProductInMyProducts >= 0) {
                     myProducts!.splice(indexOfProductInMyProducts, 1);
                     dispatch({
-                        type: ALL_PRODUCTS_SUCCESS,
+                        type: MY_PRODUCTS_SUCCESS,
                         payload: {
                             products: myProducts,
                             total_pages: myProductsTotal_pages,

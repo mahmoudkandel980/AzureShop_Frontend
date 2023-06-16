@@ -50,6 +50,7 @@ const CreateEditProductForm = (
                 <div className='relative w-28 h-28'>
                     {imageUrl || localImage ? (
                         <img
+                            loading='lazy'
                             className='h-full w-full rounded-full object-cover'
                             src={
                                 localImage

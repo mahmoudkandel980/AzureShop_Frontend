@@ -75,6 +75,7 @@ const HomeSwiper = (): JSX.Element => {
                                             <div className='absolute top-0 left-0 h-full w-full block'>
                                                 <div className='relative flex justify-center h-full text-white'>
                                                     <img
+                                                        loading='lazy'
                                                         className='object-top object-cover w-full group-hover:object-bottom ease-in-out duration-[3s] md:blur-sm'
                                                         src={imageUrlConverter(
                                                             "products",
@@ -86,6 +87,7 @@ const HomeSwiper = (): JSX.Element => {
                                                     <div className='absolute top-0 left-0 h-full w-full bg-gradient-to-t from-darkGray/50 to-darkGray/80 duration-1000'></div>
                                                     <div className='md:w-64 md:absolute md:top-[50%] md:-translate-y-[50%] md:right-5 lg:right-14'>
                                                         <img
+                                                            loading='lazy'
                                                             className='hidden md:flex object-center object-fill rounded-md'
                                                             src={imageUrlConverter(
                                                                 "products",
@@ -120,7 +122,13 @@ const HomeSwiper = (): JSX.Element => {
                                                     </div>
                                                     <div className='absolute pl-1 sm:pl-3 flex flex-col justify-start w-full container mx-auto pt-2 sm:pt-5 h-full'>
                                                         <h1 className='text-base sm:text-2xl font-bold w-fit uppercase mb-5 border-b-[1px]'>
-                                                            {product.name}
+                                                            {product?.name
+                                                                .length > 20
+                                                                ? product.name.slice(
+                                                                      0,
+                                                                      20
+                                                                  ) + "..."
+                                                                : product.name}
                                                         </h1>
                                                         <div className='pl-1 sm:pl-5 pr-3 sm:pr-5 flex flex-col gap-1 text-xs sm:text-lg h-full'>
                                                             <div className='flex justify-start items-center gap-2'>
@@ -259,6 +267,7 @@ const HomeSwiper = (): JSX.Element => {
                                                                         className='flex pl-2 justify-start items-center gap-2'
                                                                     >
                                                                         <img
+                                                                            loading='lazy'
                                                                             className='w-10 sm:w-14 h-10 sm:h-14 rounded-full object-cover'
                                                                             src={imageUrlConverter(
                                                                                 "users",

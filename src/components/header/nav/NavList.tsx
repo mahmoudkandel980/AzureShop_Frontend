@@ -87,6 +87,7 @@ const NavList = () => {
                             className='flex justify-start items-center gap-2 h-full cursor-pointer relative'
                         >
                             <img
+                                loading='lazy'
                                 className='rounded-full w-7 object-cover sm:w-8 h-7 sm:h-8'
                                 src={imageUrlConverter(
                                     "users",

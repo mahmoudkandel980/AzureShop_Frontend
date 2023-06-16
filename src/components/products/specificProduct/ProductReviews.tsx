@@ -231,12 +231,13 @@ const ProductReviews = (): JSX.Element => {
                                                 userInfo.id &&
                                                 userInfo.id ===
                                                     review.creator.id
-                                                    ? "/profile"
+                                                    ? "/profile/settings"
                                                     : `/user/${review.creator.id}`
                                             }
                                             className='relative w-8 h-8 sm:w-10 sm:h-10 overflow-hidden rounded-full'
                                         >
                                             <img
+                                                loading='lazy'
                                                 className='rounded-full object-cover w-12 h-12'
                                                 src={imageUrlConverter(
                                                     "users",

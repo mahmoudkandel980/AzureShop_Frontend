@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store/store";
@@ -16,6 +16,9 @@ import imageUrlConverter from "../../helpers/imageUrlConverter";
 const SingleProductOfOrder = (props: SingleProductOfCartInterface) => {
     const { product, cartItems, qty, index } = props;
     const dispatch = useDispatch<AppDispatch>();
+
+    const { pathname } = useLocation();
+    console.log(pathname.startsWith("/order"));
 
     const deleteProductFromCartHandler = () => {
         dispatch(deleteProductFromCart(product.id));
@@ -41,6 +44,7 @@ const SingleProductOfOrder = (props: SingleProductOfCartInterface) => {
                 >
                     <td className='sm:w-[10%] pb-2'>
                         <img
+                            loading='lazy'
                             className='w-8 h-8 sm:w-10 sm:h-10 object-cover rounded-sm'
                             src={imageUrlConverter(
                                 "products",
@@ -66,7 +70,7 @@ const SingleProductOfOrder = (props: SingleProductOfCartInterface) => {
                             price={product.price - product.priceDiscount}
                         />
                     </td>
-                    <td>=</td>
+                    <td className='sm:w-[5%]'>=</td>
                     <td>
                         <ConvertedPrice
                             price={
@@ -74,7 +78,11 @@ const SingleProductOfOrder = (props: SingleProductOfCartInterface) => {
                             }
                         />
                     </td>
-                    <td className='lg:w-[10%]'>
+                    <td
+                        className={`${
+                            pathname.startsWith("/order") && "hidden"
+                        } lg:w-[10%]`}
+                    >
                         <Button
                             onClick={deleteProductFromCartHandler}
                             deleteBtn={true}

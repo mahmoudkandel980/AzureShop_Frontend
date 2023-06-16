@@ -76,6 +76,7 @@ const ProductsTabelBody = (props: ProductBodyInterface): JSX.Element => {
                         </td>
                         <td className='hidden lg:table-cell'>
                             <img
+                                loading='lazy'
                                 className='rounded-sm object-cover w-6 sm:w-8 h-6 sm:h-8'
                                 src={imageUrlConverter(
                                     "products",

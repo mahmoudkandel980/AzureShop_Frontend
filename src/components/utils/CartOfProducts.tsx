@@ -102,6 +102,7 @@ const CartOfProducts = (props: ClassNameInterface): JSX.Element => {
                                             <td>x</td>
                                             <td>
                                                 <img
+                                                    loading='lazy'
                                                     className='w-8 h-8 object-cover rounded-md'
                                                     src={imageUrlConverter(
                                                         "products",

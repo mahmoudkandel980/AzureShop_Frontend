@@ -57,6 +57,7 @@ const Reviews = (): JSX.Element => {
                                 >
                                     <div className='relative'>
                                         <img
+                                            loading='lazy'
                                             className='h-16 border-4 border-white dark:border-smothDark w-16 object-contain absolute z-10 bottom-0 left-[50%] -translate-x-[50%] translate-y-[50%] rounded-full'
                                             src={imageUrlConverter(
                                                 "users",
@@ -69,6 +70,7 @@ const Reviews = (): JSX.Element => {
                                             to={`/product/${review.product.id}`}
                                         >
                                             <img
+                                                loading='lazy'
                                                 className={`${
                                                     !review.product.type &&
                                                     "h-44"

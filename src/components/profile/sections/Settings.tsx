@@ -175,6 +175,7 @@ const Settings = (props: SettingsInterface): JSX.Element => {
             >
                 <div className='relative w-28 h-28'>
                     <img
+                        loading='lazy'
                         className='h-full w-full rounded-full object-cover'
                         src={
                             localImage

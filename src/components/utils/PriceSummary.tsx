@@ -40,7 +40,9 @@ const PriceSummary = (props: PriceSummaryInterface): JSX.Element => {
                     pathname === "/checkout/order"
                         ? "border-b-[1px]"
                         : ((!isPaid && userInfo.id !== order?.creator.id) ||
-                              !isDelivered) &&
+                              (!isDelivered &&
+                                  order?.creator.role !== "user" &&
+                                  order?.creator.role !== "seller")) &&
                           "border-b-[1px]"
                 } text-xs sm:text-base flex flex-col justify-center items-start gap-3 w-full px-3 pb-3 border-lightDark/20 dark:border-lightDark`}
             >

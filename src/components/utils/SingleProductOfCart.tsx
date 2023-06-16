@@ -90,6 +90,7 @@ const SingleProductOfCart = (
             } text-[10px] sm:text-base flex items-center justify-between flex-1`}
         >
             <img
+                loading='lazy'
                 className='w-10 h-10 sm:w-24 sm:h-24 object-cover rounded-md'
                 src={imageUrlConverter("products", product.imageUrl)}
                 alt={`${product.name}_image`}

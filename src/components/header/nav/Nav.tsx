@@ -11,6 +11,7 @@ const Nav = () => {
                 to={"/"}
             >
                 <img
+                    loading='lazy'
                     className=' object-cover h-8 sm:h-10 invert-[100%] dark:invert-0'
                     src={`/images/headerLogo_darkMode.png`}
                     alt={`logo_image`}

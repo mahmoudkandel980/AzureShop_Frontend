@@ -47,7 +47,7 @@ const UserDetails = (): JSX.Element => {
 
     return (
         <div className='container mx-auto h-full px-5 sm:px-0 flex-1 relative'>
-            {loading || user?.id !== userId ? (
+            {loading ? (
                 <Spinner />
             ) : error ? (
                 <Message type='error'>{error}</Message>
@@ -63,6 +63,7 @@ const UserDetails = (): JSX.Element => {
                         } flex flex-col sm:flex-row justify-start items-center gap-10 sm:pl-5 w-full pb-10 dark:border-white/30`}
                     >
                         <img
+                            loading='lazy'
                             className='w-36 h-36 rounded-full object-cover'
                             src={imageUrlConverter("users", user.imageUrl!)}
                             alt={user.name}

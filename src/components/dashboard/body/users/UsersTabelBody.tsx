@@ -63,6 +63,7 @@ const UsersTabelBody = (props: UsersBodyInterface): JSX.Element => {
                         </td>
                         <td className='hidden lg:table-cell'>
                             <img
+                                loading='lazy'
                                 className='rounded-sm object-cover w-6 sm:w-8 h-6 sm:h-8'
                                 src={imageUrlConverter("users", user.imageUrl!)}
                                 alt={`${user.name}_image`}
@@ -152,7 +153,7 @@ const UsersTabelBody = (props: UsersBodyInterface): JSX.Element => {
                                 )}
                                 deleteBtn
                                 className={`${
-                                    user.role === "moderator" &&
+                                    // user.role === "moderator" &&
                                     userInfo.role === "moderator" &&
                                     user.email !== userInfo.email &&
                                     "hidden"

@@ -117,6 +117,7 @@ const Footer = (): JSX.Element => {
                     <div className='sm:col-span-2 flex flex-col justify-center space-y-2 sm:space-y-5 items-center w-full'>
                         <Link rel='noreferrer' to={`/`}>
                             <img
+                                loading='lazy'
                                 className='hover:cursor-pointer w-28'
                                 src='/images/footerLogo.png'
                                 alt='azure shop logo'
@@ -182,7 +183,14 @@ const Footer = (): JSX.Element => {
                             store information
                         </h2>
                         <div className='flex flex-col space-y-1'>
-                            <FooterLink href={"/"}>API</FooterLink>
+                            <Link
+                                target='_blank'
+                                rel='noreferrer'
+                                to='https://documenter.getpostman.com/view/20256803/2s93sW9Fnz'
+                                className='capitalize text-sm text-start hover:scale-105 hover:translate-x-1.5 hover:font-semibold w-fit pl-1 rounded-sm duration-300'
+                            >
+                                API
+                            </Link>
                             <Link
                                 rel='noreferrer'
                                 className='flex justify-start items-center gap-1 pl-1'

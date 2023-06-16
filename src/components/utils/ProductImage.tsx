@@ -98,6 +98,7 @@ const ProductImage = (props: ProductImageInterface) => {
                 location.pathname.includes("/user") ? (
                     <Link to={`/product/${product.id}`}>
                         <img
+                            loading='lazy'
                             className={`${
                                 !product.type && "h-44"
                             } object-top object-cover w-full group-hover:object-bottom duration-1000 ease-in-out `}
@@ -110,6 +111,7 @@ const ProductImage = (props: ProductImageInterface) => {
                     </Link>
                 ) : (
                     <img
+                        loading='lazy'
                         className='w-full object-fill rounded-md'
                         src={imageUrlConverter("products", product.imageUrl)}
                         alt={`${product.name}_image`}

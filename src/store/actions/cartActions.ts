@@ -134,6 +134,13 @@ export const addProductToCart =
                     }
                 }
 
+                dispatch({
+                    type: ADD_PRODUCT_TO_CART_SUCCESS,
+                    payload: JSON.parse(
+                        localStorage.getItem("cartItems") as string
+                    ),
+                });
+
                 // store wishList data to allProducts and local storage
                 dispatch({
                     type: GET_ALLPRODUCTS_IN_CART_SUCCESS,

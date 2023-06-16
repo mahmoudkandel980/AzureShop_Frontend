@@ -106,6 +106,7 @@ const RightSide = (props: RightSideProductDetailsInterface): JSX.Element => {
                             className='flex pl-2 justify-start items-center gap-2 relative'
                         >
                             <img
+                                loading='lazy'
                                 className='w-10 h-10 rounded-full object-cover'
                                 src={imageUrlConverter(
                                     "users",
