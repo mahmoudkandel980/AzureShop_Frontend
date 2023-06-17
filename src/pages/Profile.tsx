@@ -34,7 +34,7 @@ const Profile = (): JSX.Element => {
                         pathname.includes("/profile")
                             ? "p-0.5 pl-0.5"
                             : "p-3 pl-5"
-                    } flex-1 sm:p-5 lg:p-10 sm:pl-5 lg:pl-5 relative min-h-[500px]`}
+                    } flex-1 sm:p-5 lg:p-10 sm:pl-5 lg:pl-5 relative min-h-[300px]`}
                 >
                     {pathname.includes("settings") && (
                         <Settings userInfo={userInfo} />

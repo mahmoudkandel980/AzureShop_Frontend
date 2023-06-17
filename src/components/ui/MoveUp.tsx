@@ -28,7 +28,7 @@ const MoveUp = (): JSX.Element => {
             <AnimatePresence>
                 {showSlideupButton && (
                     <motion.div
-                        className='z-20 fixed w-screen top-0 left-0'
+                        className='z-10 fixed w-screen top-0 left-0 dark:text-white'
                         initial={{
                             opacity: 0,
                             top: "-10px",

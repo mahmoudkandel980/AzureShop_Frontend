@@ -40,7 +40,7 @@ function App() {
 
             <Suspense
                 fallback={
-                    <div className='w-full flex justify-center items-center relative flex-1 h-36'>
+                    <div className='w-full flex justify-center items-center relative flex-1 h-56'>
                         <Spinner />
                     </div>
                 }

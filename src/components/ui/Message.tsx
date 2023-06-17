@@ -13,7 +13,7 @@ const Message = (props: MessageInterface): JSX.Element => {
             <div
                 className={`${
                     type === "error" ? "text-darkRed" : ""
-                } rounded-md text-center w-full  p-5 py-0.5 `}
+                } text-xs sm:text-sm rounded-md text-center w-full p-5 py-0.5 `}
             >
                 {props.children}
             </div>

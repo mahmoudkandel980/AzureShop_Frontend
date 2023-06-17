@@ -11,7 +11,7 @@ const RegisterComponent = (): JSX.Element => {
     const { registerType } = useParams();
 
     return (
-        <div className='flex flex-col items-center border-[1px] w-[90%] sm:w-[70%] md:w-[50%] lg:w-[40%] xl:w-[30%] py-[4%] pb-[2%] rounded-lg border-lightDark/10 dark:border-lightDark mt-10'>
+        <div className='flex flex-col items-center border-[1px] w-[90%] sm:w-[70%] md:w-[50%] lg:w-[40%] xl:w-[30%] py-[4%] pb-[10%] md:pb-[2%] rounded-lg border-lightDark/10 dark:border-lightDark mt-10'>
             <h1 className='text-center text-2xl font-bold pb-10'>
                 {registerType === "login"
                     ? "Log in"

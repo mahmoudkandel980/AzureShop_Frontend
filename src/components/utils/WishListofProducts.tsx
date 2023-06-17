@@ -43,7 +43,7 @@ const WishListofProducts = (props: ClassNameInterface): JSX.Element => {
             <h3 className='capitalize text-lg font-bold pb-10 pl-3 sm:pl-10'>
                 Wish list
             </h3>
-            <div className='px-5'>
+            <div className='px-5 min-h-[150px]'>
                 {loading ? (
                     <Spinner />
                 ) : error ? (
