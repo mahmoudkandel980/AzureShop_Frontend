@@ -64,7 +64,10 @@ export const dashboard_usersOverView =
         } catch (error: errorInterface) {
             dispatch({
                 type: DASHBOARD_USERS_OVERVIEW_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -91,7 +94,10 @@ export const dashboard_productsOverView =
         } catch (error: errorInterface) {
             dispatch({
                 type: DASHBOARD_PODUCTS_OVERVIEW_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -121,7 +127,10 @@ export const dashboard_allUsers =
         } catch (error: errorInterface) {
             dispatch({
                 type: DASHBOARD_ALL_USERS_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -150,7 +159,10 @@ export const dashboard_deleteUser =
         } catch (error: errorInterface) {
             dispatch({
                 type: DASHBOARD_DELETE_USER_USERS_PAGE_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -180,7 +192,10 @@ export const dashboard_editUser =
         } catch (error: errorInterface) {
             dispatch({
                 type: DASHBOARD_EDIT_USER_USERS_PAGE_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -209,7 +224,10 @@ export const dashboard_deleteProduct =
         } catch (error: errorInterface) {
             dispatch({
                 type: DASHBOARD_DELETE_PRODUCT_PROCUCTS_PAGE_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -239,7 +257,10 @@ export const dashboard_editProduct =
         } catch (error: errorInterface) {
             dispatch({
                 type: DASHBOARD_EDIT_PRODUCT_PROCUCTS_PAGE_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -267,7 +288,10 @@ export const dashboard_usersWantToBeSellers =
         } catch (error: errorInterface) {
             dispatch({
                 type: DASHBOARD_USERS_WANT_TO_BE_SELLERS_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -296,7 +320,10 @@ export const dashboard_usersWantToBeSellersNumbers =
         } catch (error: errorInterface) {
             dispatch({
                 type: DASHBOARD_USERS_WANT_TO_BE_SELLERS_NUMBERS_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -325,7 +352,10 @@ export const dashboard_updateuserWantToBeSeller =
         } catch (error: errorInterface) {
             dispatch({
                 type: DASHBOARD_UPDATE_USER_WANT_TO_BE_SELLER_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -355,7 +385,10 @@ export const dashboard_allOrders =
         } catch (error: errorInterface) {
             dispatch({
                 type: DASHBOARD_ALL_ORDERS_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };

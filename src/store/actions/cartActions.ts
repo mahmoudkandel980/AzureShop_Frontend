@@ -56,7 +56,10 @@ export const getAllProductsInCart =
         } catch (error: errorInterface) {
             dispatch({
                 type: GET_ALLPRODUCTS_IN_CART_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -152,7 +155,10 @@ export const addProductToCart =
         } catch (error: errorInterface) {
             dispatch({
                 type: ADD_PRODUCT_TO_CART_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -220,7 +226,10 @@ export const deleteProductFromCart =
         } catch (error: errorInterface) {
             dispatch({
                 type: DELETE_PRODUCT_FROM_CART_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };

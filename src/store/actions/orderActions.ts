@@ -51,7 +51,10 @@ export const createOrder =
         } catch (error: errorInterface) {
             dispatch({
                 type: CREATE_ORDER_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -76,7 +79,10 @@ export const getMyOrders =
         } catch (error: errorInterface) {
             dispatch({
                 type: GET_MY_ORDERS_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -101,7 +107,10 @@ export const getOrderByOrderId =
         } catch (error: errorInterface) {
             dispatch({
                 type: GET_ORDER_BY_ORDER_ID_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -127,7 +136,10 @@ export const createCheckoutSession =
         } catch (error: errorInterface) {
             dispatch({
                 type: CREATE_CHECKOUT_SESSION_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -153,7 +165,10 @@ export const updateOrderToPaid =
         } catch (error: errorInterface) {
             dispatch({
                 type: UPDATE_ORDER_TO_PAID_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -182,7 +197,10 @@ export const updateOrderToDelivered =
         } catch (error: errorInterface) {
             dispatch({
                 type: UPDATE_ORDER_TO_DELIVERED_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };

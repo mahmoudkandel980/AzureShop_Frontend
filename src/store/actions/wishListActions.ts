@@ -59,7 +59,10 @@ export const getAllProductsInWishList =
         } catch (error: errorInterface) {
             dispatch({
                 type: GET_ALL_PRODUCTS_IN_WISHLIST_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -141,7 +144,10 @@ export const addProductToWishList =
         } catch (error: errorInterface) {
             dispatch({
                 type: ADD_PRODUCT_TO_WISHLIST_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -216,7 +222,10 @@ export const deleteProductFromWishList =
         } catch (error: errorInterface) {
             dispatch({
                 type: DELETE_PRODUCT_TO_WISHLIST_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };

@@ -35,7 +35,10 @@ export const getProductReviews =
         } catch (error: errorInterface) {
             dispatch({
                 type: GET_PRODUCT_REVIEWS_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -65,7 +68,10 @@ export const addProductReview =
         } catch (error: errorInterface) {
             dispatch({
                 type: ADD_PRODUCT_REVIEW_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -95,7 +101,10 @@ export const editProductReview =
         } catch (error: errorInterface) {
             dispatch({
                 type: EDIT_PRODUCT_REVIEW_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -120,7 +129,10 @@ export const deleteProductReview =
         } catch (error: errorInterface) {
             dispatch({
                 type: DELETE_PRODUCT_REVIEW_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -145,7 +157,10 @@ export const getMyReviews =
         } catch (error: errorInterface) {
             dispatch({
                 type: GET_MY_REVIEWS_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };

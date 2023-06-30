@@ -53,7 +53,10 @@ export const GetAllProducts =
         } catch (error: errorInterface) {
             dispatch({
                 type: ALL_PRODUCTS_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -66,7 +69,10 @@ export const productDetails = (id: string) => async (dispatch: AppDispatch) => {
     } catch (error: errorInterface) {
         dispatch({
             type: PRODUCT_DETAILS_FAIL,
-            payload: error.message,
+            payload:
+                error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message,
         });
     }
 };
@@ -91,7 +97,10 @@ export const myProducts =
         } catch (error: errorInterface) {
             dispatch({
                 type: MY_PRODUCTS_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -118,7 +127,10 @@ export const createProduct =
         } catch (error: errorInterface) {
             dispatch({
                 type: CREATE_PRODUCT_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -145,7 +157,10 @@ export const editProduct =
         } catch (error: errorInterface) {
             dispatch({
                 type: EDIT_MY_PRODUCTS_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -173,7 +188,10 @@ export const deleteProduct =
         } catch (error: errorInterface) {
             dispatch({
                 type: DELETE_MY_PRODUCTS_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -193,7 +211,10 @@ export const getTopRatedBestSaleProducts =
         } catch (error: errorInterface) {
             dispatch({
                 type: TOP_RATED_BEST_SALE_PRODUCTS_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };

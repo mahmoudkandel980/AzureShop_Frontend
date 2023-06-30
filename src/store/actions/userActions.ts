@@ -115,7 +115,10 @@ export const signup =
         } catch (error: errorInterface) {
             dispatch({
                 type: USER_SIGNUP_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -178,7 +181,10 @@ export const login =
         } catch (error: errorInterface) {
             dispatch({
                 type: USER_LOGIN_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -208,7 +214,10 @@ export const getUserDetailsById =
         } catch (error: errorInterface) {
             dispatch({
                 type: USER_DETAILS_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -235,7 +244,10 @@ export const forgetPassword =
         } catch (error: errorInterface) {
             dispatch({
                 type: USER_FORGET_PASSWORD_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -260,7 +272,10 @@ export const resetPassword =
         } catch (error: errorInterface) {
             dispatch({
                 type: USER_RESET_PASSWORD_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -287,7 +302,10 @@ export const updateMe =
         } catch (error: errorInterface) {
             dispatch({
                 type: UPDATE_ME_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -312,7 +330,10 @@ export const deleteMe =
         } catch (error: errorInterface) {
             dispatch({
                 type: DELETE_ME_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
@@ -342,7 +363,10 @@ export const changePassword =
         } catch (error: errorInterface) {
             dispatch({
                 type: CHANGE_USER_PASSWORD_FAIL,
-                payload: error.message,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
             });
         }
     };
