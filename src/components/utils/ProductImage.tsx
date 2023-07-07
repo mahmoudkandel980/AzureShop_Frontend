@@ -113,7 +113,7 @@ const ProductImage = (props: ProductImageInterface) => {
                     <img
                         loading='lazy'
                         className='w-full object-fill rounded-md'
-                        src={imageUrlConverter("products", product.imageUrl)}
+                        srcSet={imageUrlConverter("products", product.imageUrl)}
                         alt={`${product.name}_image`}
                     />
                 )}
