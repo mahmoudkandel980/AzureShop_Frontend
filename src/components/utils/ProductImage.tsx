@@ -102,7 +102,7 @@ const ProductImage = (props: ProductImageInterface) => {
                             className={`${
                                 !product.type && "h-44"
                             } object-top object-cover w-full group-hover:object-bottom duration-1000 ease-in-out `}
-                            src={imageUrlConverter(
+                            srcSet={imageUrlConverter(
                                 "products",
                                 product.imageUrl
                             )}
