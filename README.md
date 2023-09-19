@@ -1,70 +1,42 @@
-# Getting Started with Create React App
+# Azure Shop
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+You can go to project live [Azure Shop](https://azure-shop.netlify.app/) and [API](https://documenter.getpostman.com/view/20256803/2s93sW9Fnz).
 
-## Available Scripts
+**Azure Shop is a full stack realtime E-commerce web application using**
 
-In the project directory, you can run:
+-   React - TypeScript.
+-   Redux - Context API.
+-   TailwindCss.
+-   Node.js - Express.js.
+-   MongoDB - Mongoose.
+-   Socket.IO.
+-   Rest API.
+-   Stripe - Cloudinary.
 
-### `npm start`
+<br/>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+**Special features in Azure shop application**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+-   When create, edit or remove user, product, review or even order. it will render in all application screens in realtime by Socket.IO.
+-   There are a five several roles everyone has his own restrictions. Roles are user, seller, moderator, sub admin and admin.
+-   There is a dashboard available only for moderators, sub admins and admin.
+-   **Non authenticated user** can add or remove product from wish list or cart, product will be stored in localStorage, when user signup or login node.js server will implement functions for adding those products to his wish list and his cart. He can't make an order without creating an account.
+-   **All users** with any role can add or remove product from his wish list or cart, make an order and pay for the order.
+-   **User** Can ask to be a seller.
+-   **Sellers, Moderators, Sub admins and Admin** Can create a product, edit or remove himself products.
+-   **Moderators, Sub admins and Admin** Can mark any order as delivered.
+-   **Moderator** Can edit seller's products except product's price, discount and the count in stock. Can edit users and sellers account's data. Can set user as a seller or set seller as a user.
+-   **Sub admin** Can edit seller's and moderator's products except product's price, discount and the count in stock. Can edit users, sellers and moderators account's data. Can convert user as a seller or moderator. Can convert seller as a user or moderator. Can convert moderator as a user or seller. Can remove users, sellers and moderators accounts.
+-   **Admin** Can edit seller's, moderator's and sub admin's products except product's price, discount and the count in stock. Can edit users, sellers, moderators and sub admins account's data. Can convert user as a seller, moderator or sub admin. Can convert seller as a user, moderator or sub admin. Can convert moderator as a user, seller or sub admin. Can convert sub admin as a user, seller or moderator. Can remove users, sellers, moderators and sub admins accounts.
 
-### `npm test`
+<br/>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Others features Azure shop application**
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+-   You can create an account, edit your data like your image, name and email, change password, you can reset your password when you forgot password, inactivate your account. If you sell products, those products will be hidden when you are inactive, when you activate your account products will be displayed again.
+-   Any user with any role when make an order and pay for it when the order marked as delivered. User can create review for the product, edit or remove the review. User can only make one review for the product he received.
+-   There is only one admin in application.
+-   There is light mode and dark mode.
+-   Payment done by Stripe company.
+-   In development images will store in node.js server images folder, but in production images will store in cloudinary.
+-   There are more logic than i mentioned here you will find there. check it [Azure Shop](https://azure-shop.netlify.app/).
