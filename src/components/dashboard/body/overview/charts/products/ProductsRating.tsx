@@ -24,27 +24,27 @@ const ProductsRating = (props: ProductsInterface): JSX.Element => {
         products.forEach((product) => {
             if (product.rating === 0) {
                 setData((prevState) => prevState.concat(product.numProducts));
-                setLabels((prevState) => prevState.concat("0 start"));
+                setLabels((prevState) => prevState.concat("0 star"));
                 return;
             } else if (product.rating <= 1) {
                 setData((prevState) => prevState.concat(product.numProducts));
-                setLabels((prevState) => prevState.concat("1 start"));
+                setLabels((prevState) => prevState.concat("1 star"));
                 return;
             } else if (product.rating <= 2) {
                 setData((prevState) => prevState.concat(product.numProducts));
-                setLabels((prevState) => prevState.concat("2 starts"));
+                setLabels((prevState) => prevState.concat("2 stars"));
                 return;
             } else if (product.rating <= 3) {
                 setData((prevState) => prevState.concat(product.numProducts));
-                setLabels((prevState) => prevState.concat("3 starts"));
+                setLabels((prevState) => prevState.concat("3 stars"));
                 return;
             } else if (product.rating <= 4) {
                 setData((prevState) => prevState.concat(product.numProducts));
-                setLabels((prevState) => prevState.concat("4 starts"));
+                setLabels((prevState) => prevState.concat("4 stars"));
                 return;
             } else if (product.rating === 5) {
                 setData((prevState) => prevState.concat(product.numProducts));
-                setLabels((prevState) => prevState.concat("5 starts"));
+                setLabels((prevState) => prevState.concat("5 stars"));
                 return;
             }
         });
