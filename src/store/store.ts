@@ -30,6 +30,7 @@ import {
     updateMeReducer,
     deleteMeReducer,
     changePasswordReducer,
+    profileReducer,
 } from "./reducers/userReducers";
 
 import {
@@ -99,6 +100,7 @@ const reducer = combineReducers({
     updateMe: updateMeReducer,
     deleteMe: deleteMeReducer,
     changePassword: changePasswordReducer,
+    profile: profileReducer,
     // cart
     cart: getAllProductsInCartReducer,
     addProductToCard: addProductToCartReducer,

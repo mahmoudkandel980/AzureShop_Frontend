@@ -138,7 +138,7 @@ const UserDetails = (): JSX.Element => {
                                 <></>
                             )}
                         </div>
-                    )  : user.role !== "user" ? (
+                    ) : user.role !== "user" ? (
                         <Message type='error'>
                             {`${user.name} have not any products yet`}
                         </Message>

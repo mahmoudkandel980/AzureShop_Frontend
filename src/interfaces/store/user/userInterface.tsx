@@ -128,6 +128,14 @@ export interface DeleteUserInterface {
     };
 }
 
+export interface ProfileInterface {
+    profile: {
+        loading?: boolean;
+        error?: string;
+        user?: UserInfo;
+    };
+}
+
 export interface EditUserInterface {
     dashboard_editUser: {
         loading?: boolean;
@@ -218,6 +226,12 @@ export interface DeleteUserReducerInterface {
 }
 
 export interface EditUserReducerInterface {
+    loading?: boolean;
+    error?: string;
+    user?: UserInfo;
+}
+
+export interface ProfileReducerInterface {
     loading?: boolean;
     error?: string;
     user?: UserInfo;

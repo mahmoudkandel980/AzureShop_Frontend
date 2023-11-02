@@ -18,6 +18,9 @@ import {
     USER_RESET_PASSWORD_REQUEST,
     USER_RESET_PASSWORD_SUCCESS,
     USER_RESET_PASSWORD_FAIL,
+    PROFILE_SUCCESS,
+    PROFILE_REQUEST,
+    PROFILE_FAIL,
     UPDATE_ME_REQUEST,
     UPDATE_ME_SUCCESS,
     UPDATE_ME_FAIL,
@@ -272,6 +275,38 @@ export const resetPassword =
         } catch (error: errorInterface) {
             dispatch({
                 type: USER_RESET_PASSWORD_FAIL,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
+            });
+        }
+    };
+
+export const profile =
+    () => async (dispatch: AppDispatch, getState: () => RootState) => {
+        const { userLogin } = getState();
+        try {
+            dispatch({ type: PROFILE_REQUEST });
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${userLogin.userInfo?.token}`,
+                },
+            };
+
+            const { data } = await axios.get(
+                `${BACKEND_API}/users/profile`,
+                config
+            );
+
+            const newUserDate = { ...userLogin.userInfo, ...data.user };
+
+            dispatch({ type: USER_LOGIN_SUCCESS, payload: newUserDate });
+            localStorage.setItem("userInfo", JSON.stringify(newUserDate));
+            dispatch({ type: PROFILE_SUCCESS, payload: data.user });
+        } catch (error: errorInterface) {
+            dispatch({
+                type: PROFILE_FAIL,
                 payload:
                     error.response && error.response.data.message
                         ? error.response.data.message

@@ -102,7 +102,7 @@ const ProductImage = (props: ProductImageInterface) => {
                             className={`${
                                 !product.type && "h-44"
                             } object-top object-cover w-full group-hover:object-bottom duration-1000 ease-in-out `}
-                            srcSet={imageUrlConverter(
+                            src={imageUrlConverter(
                                 "products",
                                 product.imageUrl
                             )}
@@ -113,7 +113,7 @@ const ProductImage = (props: ProductImageInterface) => {
                     <img
                         loading='lazy'
                         className='w-full object-fill rounded-md'
-                        srcSet={imageUrlConverter("products", product.imageUrl)}
+                        src={imageUrlConverter("products", product.imageUrl)}
                         alt={`${product.name}_image`}
                     />
                 )}

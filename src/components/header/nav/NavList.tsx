@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "../../../store/store";
+import { AppDispatch, RootState } from "../../../store/store";
+import { profile } from "../../../store/actions/userActions";
 import { dashboard_usersWantToBeSellersNumbers } from "../../../store/actions/dashboardActions";
 
 import Backdrop from "../../models/Backdrop";
@@ -11,7 +12,10 @@ import Dropdown from "../Dropdown";
 import NotificationDot from "../../ui/NotificationDot";
 
 import { BsThreeDots } from "react-icons/bs";
-import { UsersWantToBeSellerNumberInterface } from "../../../interfaces/store/user/userInterface";
+import {
+    ProfileInterface,
+    UsersWantToBeSellerNumberInterface,
+} from "../../../interfaces/store/user/userInterface";
 import { LoginInterface } from "../../../interfaces/store/user/authInterface";
 import { CartStateInterface } from "../../../interfaces/store/cart/cartInterface";
 import imageUrlConverter from "../../../helpers/imageUrlConverter";
@@ -34,6 +38,10 @@ const NavList = () => {
     const { usersWantToBeSellersNumber, loading } =
         usersWantToBeSellersNumbers.dashboard_usersWantToBeSellersNumbers;
 
+    const { profile: profileDate } = useSelector(
+        (state) => state as ProfileInterface
+    );
+
     useEffect(() => {
         if (cartItems.length === 0) {
             setCartItemsNumber(0);
@@ -46,6 +54,13 @@ const NavList = () => {
     const toggleModeHandler = () => {
         setShowModel((prevState) => !prevState);
     };
+
+    useEffect(() => {
+        if (userInfo.role) {
+            dispatch(profile());
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
         if (

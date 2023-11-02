@@ -16,6 +16,9 @@ import {
     USER_RESET_PASSWORD_REQUEST,
     USER_RESET_PASSWORD_SUCCESS,
     USER_RESET_PASSWORD_FAIL,
+    PROFILE_SUCCESS,
+    PROFILE_REQUEST,
+    PROFILE_FAIL,
     UPDATE_ME_REQUEST,
     UPDATE_ME_SUCCESS,
     UPDATE_ME_FAIL,
@@ -39,6 +42,8 @@ import {
     UpdateMeReducerInterface,
     DeleteMeReducerInterface,
     ChangePasswordReducerInterface,
+    EditUserReducerInterface,
+    ProfileReducerInterface,
 } from "../../interfaces/store/user/userInterface";
 
 export const usersignupReducer = (
@@ -123,6 +128,22 @@ export const resetPasswordReducer = (
         case USER_RESET_PASSWORD_SUCCESS:
             return { loading: false, userInfo: action.payload };
         case USER_RESET_PASSWORD_FAIL:
+            return { loading: false, error: action.payload };
+        default:
+            return state;
+    }
+};
+
+export const profileReducer = (
+    state = {},
+    action: AnyAction
+): ProfileReducerInterface => {
+    switch (action.type) {
+        case PROFILE_SUCCESS:
+            return { ...state, loading: true };
+        case PROFILE_REQUEST:
+            return { loading: false, user: action.payload };
+        case PROFILE_FAIL:
             return { loading: false, error: action.payload };
         default:
             return state;

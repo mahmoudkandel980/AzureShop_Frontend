@@ -313,6 +313,7 @@ export const dashboard_usersWantToBeSellersNumbers =
                 `${BACKEND_API}/users/dashboard/usersWantToBeSellersNumbers`,
                 config
             );
+
             dispatch({
                 type: DASHBOARD_USERS_WANT_TO_BE_SELLERS_NUMBERS_SUCCESS,
                 payload: data,

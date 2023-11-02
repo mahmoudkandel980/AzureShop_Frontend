@@ -128,7 +128,9 @@ const Settings = (props: SettingsInterface): JSX.Element => {
             const SubmitedFormDate = new FormData();
 
             SubmitedFormDate.append("name", name);
-            SubmitedFormDate.append("email", email);
+            if (userInfo.email !== email) {
+                SubmitedFormDate.append("email", email);
+            }
             localImage &&
                 localImage?.name &&
                 SubmitedFormDate.append("imageUrl", localImage);
