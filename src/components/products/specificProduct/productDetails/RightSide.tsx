@@ -100,7 +100,7 @@ const RightSide = (props: RightSideProductDetailsInterface): JSX.Element => {
                                 userInfo &&
                                 userInfo.id &&
                                 userInfo.id === product.creator.id
-                                    ? "/profile"
+                                    ? "/profile/settings"
                                     : `/user/${product.creator.id}`
                             }
                             className='flex pl-2 justify-start items-center gap-2 relative'

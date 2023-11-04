@@ -1,4 +1,3 @@
-import axios from "axios";
 import {
     ADD_PRODUCT_TO_WISHLIST_REQUSET,
     ADD_PRODUCT_TO_WISHLIST_SUCCESS,
@@ -16,7 +15,7 @@ import { errorInterface } from "../../interfaces/components/public";
 import { RootState, AppDispatch } from "../store";
 import { ProductStateInterface } from "../../interfaces/store/product/productInterface";
 
-const BACKEND_API = process.env.REACT_APP_API_URL;
+import baseRoute from "../../api/baseRoute";
 
 export const getAllProductsInWishList =
     () => async (dispatch: AppDispatch, getState: () => RootState) => {
@@ -26,16 +25,7 @@ export const getAllProductsInWishList =
 
             if (userLogin.userInfo && userLogin.userInfo.token) {
                 // Authenticated
-                const config = {
-                    headers: {
-                        Authorization: `Bearer ${userLogin.userInfo.token}`,
-                    },
-                };
-
-                const { data } = await axios.get(
-                    `${BACKEND_API}/wishList`,
-                    config
-                );
+                const { data } = await baseRoute.get(`/wishList`);
                 dispatch({
                     type: GET_ALL_PRODUCTS_IN_WISHLIST_SUCCESS,
                     payload: data.wishList,
@@ -79,18 +69,10 @@ export const addProductToWishList =
             });
             if (userLogin.userInfo && userLogin.userInfo.token) {
                 // Authenticated
-                const config = {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${userLogin.userInfo.token}`,
-                    },
-                };
 
-                const { data } = await axios.post(
-                    `${BACKEND_API}/wishList`,
-                    { id: product.id },
-                    config
-                );
+                const { data } = await baseRoute.post(`/wishList`, {
+                    id: product.id,
+                });
                 dispatch({
                     type: ADD_PRODUCT_TO_WISHLIST_SUCCESS,
                     payload: data.wishList,
@@ -161,18 +143,8 @@ export const deleteProductFromWishList =
             dispatch({ type: DELETE_PRODUCT_TO_WISHLIST_REQUSET, payload: id });
             if (userLogin.userInfo && userLogin.userInfo.token) {
                 // Authenticated
-                const config = {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${userLogin.userInfo.token}`,
-                    },
-                };
 
-                const { data } = await axios.patch(
-                    `${BACKEND_API}/wishList`,
-                    { id: id },
-                    config
-                );
+                const { data } = await baseRoute.patch(`/wishList`, { id: id });
                 dispatch({
                     type: DELETE_PRODUCT_TO_WISHLIST_SUCCESS,
                     payload: data.message,

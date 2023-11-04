@@ -27,7 +27,7 @@ export const modifiedProductsAfterAddReview = (array, index, review) => {
     const newReviews = [...oldReviews, review];
     array[index].reviews = newReviews;
     const rating = totalRating(array[index].reviews);
-    array[index].rating = rating / array[index].reviews.length;
+    array[index].rating = rating;
     array[index].numReviews = array[index].reviews.length;
     return array;
 };
@@ -37,7 +37,7 @@ export const modifiedProductsAfterEditReview = (array, index, review) => {
     const reviewIndex = findIndex(array[index].reviews, review.id);
     array[index].reviews.splice(reviewIndex, 1, review);
     const rating = totalRating(array[index].reviews);
-    array[index].rating = rating / array[index].reviews.length;
+    array[index].rating = rating;
     array[index].numReviews = array[index].reviews.length;
     return array;
 };
@@ -47,7 +47,7 @@ export const modifiedProductsAfterDeleteReview = (array, index, review) => {
     const reviewIndex = findIndex(array[index].reviews, review.id);
     array[index].reviews.splice(reviewIndex, 1);
     const rating = totalRating(array[index].reviews);
-    array[index].rating = rating / array[index].reviews.length;
+    array[index].rating = rating;
     array[index].numReviews = array[index].reviews.length;
     return array;
 };

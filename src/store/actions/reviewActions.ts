@@ -1,4 +1,3 @@
-import axios from "axios";
 import {
     GET_PRODUCT_REVIEWS_REQUSET,
     GET_PRODUCT_REVIEWS_SUCCESS,
@@ -19,17 +18,16 @@ import {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { errorInterface } from "../../interfaces/components/public";
-import { RootState, AppDispatch } from "../store";
+import { AppDispatch } from "../store";
 
-const BACKEND_API = process.env.REACT_APP_API_URL;
+import baseRoute from "../../api/baseRoute";
 
 export const getProductReviews =
     (productId: string) => async (dispatch: AppDispatch) => {
         try {
             dispatch({ type: GET_PRODUCT_REVIEWS_REQUSET });
-
-            const { data } = await axios.get(
-                `${BACKEND_API}/product/${productId}/reviews/all`
+            const { data } = await baseRoute.get(
+                `/product/${productId}/reviews/all`
             );
             dispatch({ type: GET_PRODUCT_REVIEWS_SUCCESS, payload: data });
         } catch (error: errorInterface) {
@@ -45,21 +43,13 @@ export const getProductReviews =
 
 export const addProductReview =
     (productId: string, comment: string, rating: number) =>
-    async (dispatch: AppDispatch, getState: () => RootState) => {
-        const { userLogin } = getState();
+    async (dispatch: AppDispatch) => {
         try {
             dispatch({ type: ADD_PRODUCT_REVIEW_REQUSET });
-            const config = {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${userLogin.userInfo?.token}`,
-                },
-            };
 
-            const { data } = await axios.post(
-                `${BACKEND_API}/product/${productId}/reviews`,
-                { comment, rating },
-                config
+            const { data } = await baseRoute.post(
+                `/product/${productId}/reviews`,
+                { comment, rating }
             );
             dispatch({
                 type: ADD_PRODUCT_REVIEW_SUCCESS,
@@ -78,21 +68,13 @@ export const addProductReview =
 
 export const editProductReview =
     (productId: string, reviewId: string, comment: string, rating: number) =>
-    async (dispatch: AppDispatch, getState: () => RootState) => {
-        const { userLogin } = getState();
+    async (dispatch: AppDispatch) => {
         try {
             dispatch({ type: EDIT_PRODUCT_REVIEW_REQUSET });
-            const config = {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${userLogin.userInfo?.token}`,
-                },
-            };
 
-            const { data } = await axios.patch(
-                `${BACKEND_API}/product/${productId}/review/${reviewId}`,
-                { comment, rating },
-                config
+            const { data } = await baseRoute.patch(
+                `/product/${productId}/review/${reviewId}`,
+                { comment, rating }
             );
             dispatch({
                 type: EDIT_PRODUCT_REVIEW_SUCCESS,
@@ -110,20 +92,12 @@ export const editProductReview =
     };
 
 export const deleteProductReview =
-    (productId: string, reviewId: string) =>
-    async (dispatch: AppDispatch, getState: () => RootState) => {
-        const { userLogin } = getState();
+    (productId: string, reviewId: string) => async (dispatch: AppDispatch) => {
         try {
             dispatch({ type: DELETE_PRODUCT_REVIEW_REQUSET });
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${userLogin.userInfo?.token}`,
-                },
-            };
 
-            const { data } = await axios.delete(
-                `${BACKEND_API}/product/${productId}/review/${reviewId}`,
-                config
+            const { data } = await baseRoute.delete(
+                `/product/${productId}/review/${reviewId}`
             );
             dispatch({ type: DELETE_PRODUCT_REVIEW_SUCCESS, payload: data });
         } catch (error: errorInterface) {
@@ -137,30 +111,18 @@ export const deleteProductReview =
         }
     };
 
-export const getMyReviews =
-    (page: number) =>
-    async (dispatch: AppDispatch, getState: () => RootState) => {
-        const { userLogin } = getState();
-        try {
-            dispatch({ type: GET_MY_REVIEWS_REQUSET });
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${userLogin.userInfo?.token}`,
-                },
-            };
-
-            const { data } = await axios.get(
-                `${BACKEND_API}/product/myReviews?page=${page}`,
-                config
-            );
-            dispatch({ type: GET_MY_REVIEWS_SUCCESS, payload: data });
-        } catch (error: errorInterface) {
-            dispatch({
-                type: GET_MY_REVIEWS_FAIL,
-                payload:
-                    error.response && error.response.data.message
-                        ? error.response.data.message
-                        : error.message,
-            });
-        }
-    };
+export const getMyReviews = (page: number) => async (dispatch: AppDispatch) => {
+    try {
+        dispatch({ type: GET_MY_REVIEWS_REQUSET });
+        const { data } = await baseRoute.get(`/product/myReviews?page=${page}`);
+        dispatch({ type: GET_MY_REVIEWS_SUCCESS, payload: data });
+    } catch (error: errorInterface) {
+        dispatch({
+            type: GET_MY_REVIEWS_FAIL,
+            payload:
+                error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message,
+        });
+    }
+};

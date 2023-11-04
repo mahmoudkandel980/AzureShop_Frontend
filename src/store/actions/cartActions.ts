@@ -1,4 +1,3 @@
-import axios from "axios";
 import {
     ADD_PRODUCT_TO_CART_REQUSET,
     ADD_PRODUCT_TO_CART_SUCCESS,
@@ -17,7 +16,7 @@ import { errorInterface } from "../../interfaces/components/public";
 import { ProductStateInterface } from "../../interfaces/store/product/productInterface";
 import { CartItems } from "../../interfaces/store/cart/cartInterface";
 
-const BACKEND_API = process.env.REACT_APP_API_URL;
+import baseRoute from "../../api/baseRoute";
 
 export const getAllProductsInCart =
     () => async (dispatch: AppDispatch, getState: () => RootState) => {
@@ -29,13 +28,7 @@ export const getAllProductsInCart =
 
             if (userLogin.userInfo && userLogin.userInfo.token) {
                 // Authenticated
-                const config = {
-                    headers: {
-                        Authorization: `Bearer ${userLogin.userInfo.token}`,
-                    },
-                };
-
-                const { data } = await axios.get(`${BACKEND_API}/cart`, config);
+                const { data } = await baseRoute.get(`/cart`);
                 dispatch({
                     type: GET_ALLPRODUCTS_IN_CART_SUCCESS,
                     payload: data.cart,
@@ -75,18 +68,11 @@ export const addProductToCart =
             });
             if (userLogin.userInfo && userLogin.userInfo.token) {
                 // Authenticated
-                const config = {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${userLogin.userInfo.token}`,
-                    },
-                };
+                const { data } = await baseRoute.post(`/cart`, {
+                    id: product.id,
+                    qty: qty,
+                });
 
-                const { data } = await axios.post(
-                    `${BACKEND_API}/cart`,
-                    { id: product.id, qty: qty },
-                    config
-                );
                 dispatch({
                     type: ADD_PRODUCT_TO_CART_SUCCESS,
                     payload: data.cart,
@@ -172,18 +158,7 @@ export const deleteProductFromCart =
 
             if (userLogin.userInfo && userLogin.userInfo.token) {
                 // Authenticated
-                const config = {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${userLogin.userInfo.token}`,
-                    },
-                };
-
-                const { data } = await axios.patch(
-                    `${BACKEND_API}/cart`,
-                    { id: id },
-                    config
-                );
+                const { data } = await baseRoute.patch(`/cart`, { id: id });
                 dispatch({
                     type: DELETE_PRODUCT_FROM_CART_SUCCESS,
                     payload: data.message,

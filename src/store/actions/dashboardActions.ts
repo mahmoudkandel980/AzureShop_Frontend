@@ -1,4 +1,3 @@
-import axios from "axios";
 import {
     DASHBOARD_ALL_USERS_REQUSET,
     DASHBOARD_ALL_USERS_SUCCESS,
@@ -40,52 +39,33 @@ import {
     errorInterface,
     FilterDateInterface,
 } from "../../interfaces/components/public";
-import { RootState, AppDispatch } from "../store";
+import { AppDispatch } from "../store";
 
-const BACKEND_API = process.env.REACT_APP_API_URL;
+import baseRoute from "../../api/baseRoute";
 
 // OVERVIEW
-export const dashboard_usersOverView =
-    () => async (dispatch: AppDispatch, getState: () => RootState) => {
-        const { userLogin } = getState();
-        try {
-            dispatch({ type: DASHBOARD_USERS_OVERVIEW_REQUSET });
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${userLogin.userInfo?.token}`,
-                },
-            };
-
-            const { data } = await axios.get(
-                `${BACKEND_API}/users/dashboard/overview`,
-                config
-            );
-            dispatch({ type: DASHBOARD_USERS_OVERVIEW_SUCCESS, payload: data });
-        } catch (error: errorInterface) {
-            dispatch({
-                type: DASHBOARD_USERS_OVERVIEW_FAIL,
-                payload:
-                    error.response && error.response.data.message
-                        ? error.response.data.message
-                        : error.message,
-            });
-        }
-    };
+export const dashboard_usersOverView = () => async (dispatch: AppDispatch) => {
+    try {
+        dispatch({ type: DASHBOARD_USERS_OVERVIEW_REQUSET });
+        const { data } = await baseRoute.get(`/users/dashboard/overview`);
+        dispatch({ type: DASHBOARD_USERS_OVERVIEW_SUCCESS, payload: data });
+    } catch (error: errorInterface) {
+        dispatch({
+            type: DASHBOARD_USERS_OVERVIEW_FAIL,
+            payload:
+                error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message,
+        });
+    }
+};
 
 export const dashboard_productsOverView =
-    () => async (dispatch: AppDispatch, getState: () => RootState) => {
-        const { userLogin } = getState();
+    () => async (dispatch: AppDispatch) => {
         try {
             dispatch({ type: DASHBOARD_PODUCTS_OVERVIEW_REQUSET });
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${userLogin.userInfo?.token}`,
-                },
-            };
-
-            const { data } = await axios.get(
-                `${BACKEND_API}/products/dashboard/overview`,
-                config
+            const { data } = await baseRoute.get(
+                `/products/dashboard/overview`
             );
             dispatch({
                 type: DASHBOARD_PODUCTS_OVERVIEW_SUCCESS,
@@ -105,23 +85,16 @@ export const dashboard_productsOverView =
 // USERS
 export const dashboard_allUsers =
     (filterData: FilterDateInterface | null, page: number) =>
-    async (dispatch: AppDispatch, getState: () => RootState) => {
-        const { userLogin } = getState();
+    async (dispatch: AppDispatch) => {
         try {
             dispatch({ type: DASHBOARD_ALL_USERS_REQUSET });
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${userLogin.userInfo?.token}`,
-                },
-            };
 
-            const { data } = await axios.get(
-                `${BACKEND_API}/users/dashboard/users?${
+            const { data } = await baseRoute.get(
+                `/users/dashboard/users?${
                     filterData
                         ? `filterData=${JSON.stringify(filterData)}&`
                         : ""
-                }page=${page}`,
-                config
+                }page=${page}`
             );
             dispatch({ type: DASHBOARD_ALL_USERS_SUCCESS, payload: data });
         } catch (error: errorInterface) {
@@ -136,21 +109,11 @@ export const dashboard_allUsers =
     };
 
 export const dashboard_deleteUser =
-    (userId: string) =>
-    async (dispatch: AppDispatch, getState: () => RootState) => {
-        const { userLogin } = getState();
+    (userId: string) => async (dispatch: AppDispatch) => {
         try {
             dispatch({ type: DASHBOARD_DELETE_USER_USERS_PAGE_REQUSET });
-            const config = {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${userLogin.userInfo?.token}`,
-                },
-            };
-
-            const { data } = await axios.delete(
-                `${BACKEND_API}/users/dashboard/users/${userId}`,
-                config
+            const { data } = await baseRoute.delete(
+                `/users/dashboard/users/${userId}`
             );
             dispatch({
                 type: DASHBOARD_DELETE_USER_USERS_PAGE_SUCCESS,
@@ -168,22 +131,13 @@ export const dashboard_deleteUser =
     };
 
 export const dashboard_editUser =
-    (userId: string, formData: object) =>
-    async (dispatch: AppDispatch, getState: () => RootState) => {
-        const { userLogin } = getState();
+    (userId: string, formData: object) => async (dispatch: AppDispatch) => {
         try {
             dispatch({ type: DASHBOARD_EDIT_USER_USERS_PAGE_REQUSET });
-            const config = {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                    Authorization: `Bearer ${userLogin.userInfo?.token}`,
-                },
-            };
 
-            const { data } = await axios.patch(
-                `${BACKEND_API}/users/dashboard/users/${userId}`,
-                formData,
-                config
+            const { data } = await baseRoute.patch(
+                `/users/dashboard/users/${userId}`,
+                formData
             );
             dispatch({
                 type: DASHBOARD_EDIT_USER_USERS_PAGE_SUCCESS,
@@ -202,20 +156,11 @@ export const dashboard_editUser =
 
 // PRODUCTS
 export const dashboard_deleteProduct =
-    (productId: string) =>
-    async (dispatch: AppDispatch, getState: () => RootState) => {
-        const { userLogin } = getState();
+    (productId: string) => async (dispatch: AppDispatch) => {
         try {
             dispatch({ type: DASHBOARD_DELETE_PRODUCT_PROCUCTS_PAGE_REQUSET });
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${userLogin.userInfo?.token}`,
-                },
-            };
-
-            const { data } = await axios.delete(
-                `${BACKEND_API}/products/dashboard/products/${productId}`,
-                config
+            const { data } = await baseRoute.delete(
+                `/products/dashboard/products/${productId}`
             );
             dispatch({
                 type: DASHBOARD_DELETE_PRODUCT_PROCUCTS_PAGE_SUCCESS,
@@ -233,22 +178,13 @@ export const dashboard_deleteProduct =
     };
 
 export const dashboard_editProduct =
-    (productId: string, formData: object) =>
-    async (dispatch: AppDispatch, getState: () => RootState) => {
-        const { userLogin } = getState();
+    (productId: string, formData: object) => async (dispatch: AppDispatch) => {
         try {
             dispatch({ type: DASHBOARD_EDIT_PRODUCT_PROCUCTS_PAGE_REQUSET });
-            const config = {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                    Authorization: `Bearer ${userLogin.userInfo?.token}`,
-                },
-            };
 
-            const { data } = await axios.patch(
-                `${BACKEND_API}/products/dashboard/products/${productId}`,
-                formData,
-                config
+            const { data } = await baseRoute.patch(
+                `/products/dashboard/products/${productId}`,
+                formData
             );
             dispatch({
                 type: DASHBOARD_EDIT_PRODUCT_PROCUCTS_PAGE_SUCCESS,
@@ -266,20 +202,11 @@ export const dashboard_editProduct =
     };
 
 export const dashboard_usersWantToBeSellers =
-    (page: number) =>
-    async (dispatch: AppDispatch, getState: () => RootState) => {
-        const { userLogin } = getState();
+    (page: number) => async (dispatch: AppDispatch) => {
         try {
             dispatch({ type: DASHBOARD_USERS_WANT_TO_BE_SELLERS_REQUSET });
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${userLogin.userInfo?.token}`,
-                },
-            };
-
-            const { data } = await axios.get(
-                `${BACKEND_API}/users/dashboard/usersWantToBeSellers?page=${page}`,
-                config
+            const { data } = await baseRoute.get(
+                `/users/dashboard/usersWantToBeSellers?page=${page}`
             );
             dispatch({
                 type: DASHBOARD_USERS_WANT_TO_BE_SELLERS_SUCCESS,
@@ -297,23 +224,15 @@ export const dashboard_usersWantToBeSellers =
     };
 
 export const dashboard_usersWantToBeSellersNumbers =
-    () => async (dispatch: AppDispatch, getState: () => RootState) => {
-        const { userLogin } = getState();
+    () => async (dispatch: AppDispatch) => {
         try {
             dispatch({
                 type: DASHBOARD_USERS_WANT_TO_BE_SELLERS_NUMBERS_REQUSET,
             });
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${userLogin.userInfo?.token}`,
-                },
-            };
 
-            const { data } = await axios.get(
-                `${BACKEND_API}/users/dashboard/usersWantToBeSellersNumbers`,
-                config
+            const { data } = await baseRoute.get(
+                `/users/dashboard/usersWantToBeSellersNumbers`
             );
-
             dispatch({
                 type: DASHBOARD_USERS_WANT_TO_BE_SELLERS_NUMBERS_SUCCESS,
                 payload: data,
@@ -330,21 +249,12 @@ export const dashboard_usersWantToBeSellersNumbers =
     };
 
 export const dashboard_updateuserWantToBeSeller =
-    (userId: string, role: string) =>
-    async (dispatch: AppDispatch, getState: () => RootState) => {
-        const { userLogin } = getState();
+    (userId: string, role: string) => async (dispatch: AppDispatch) => {
         try {
             dispatch({ type: DASHBOARD_UPDATE_USER_WANT_TO_BE_SELLER_REQUSET });
-            const config = {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${userLogin.userInfo?.token}`,
-                },
-            };
-            const { data } = await axios.patch(
-                `${BACKEND_API}/users/dashboard/usersWantToBeSellers/${userId}`,
-                { role },
-                config
+            const { data } = await baseRoute.patch(
+                `/users/dashboard/usersWantToBeSellers/${userId}`,
+                { role }
             );
             dispatch({
                 type: DASHBOARD_UPDATE_USER_WANT_TO_BE_SELLER_SUCCESS,
@@ -364,23 +274,16 @@ export const dashboard_updateuserWantToBeSeller =
 // ORDERS
 export const dashboard_allOrders =
     (filterData: FilterDateInterface | null, page: number) =>
-    async (dispatch: AppDispatch, getState: () => RootState) => {
-        const { userLogin } = getState();
+    async (dispatch: AppDispatch) => {
         try {
             dispatch({ type: DASHBOARD_ALL_ORDERS_REQUSET });
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${userLogin.userInfo?.token}`,
-                },
-            };
 
-            const { data } = await axios.get(
-                `${BACKEND_API}/orders/dashboard?${
+            const { data } = await baseRoute.get(
+                `/orders/dashboard?${
                     filterData
                         ? `filterData=${JSON.stringify(filterData)}&`
                         : ""
-                }page=${page}`,
-                config
+                }page=${page}`
             );
             dispatch({ type: DASHBOARD_ALL_ORDERS_SUCCESS, payload: data });
         } catch (error: errorInterface) {

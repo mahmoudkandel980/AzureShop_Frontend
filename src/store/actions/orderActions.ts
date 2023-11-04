@@ -1,4 +1,3 @@
-import axios from "axios";
 import {
     CREATE_ORDER_REQUSET,
     CREATE_ORDER_SUCCESS,
@@ -23,57 +22,42 @@ import {
 import { RESET_CART } from "../constants/cartConstants";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { errorInterface } from "../../interfaces/components/public";
-import { RootState, AppDispatch } from "../store";
-const BACKEND_API = process.env.REACT_APP_API_URL;
+import { AppDispatch } from "../store";
 
-export const createOrder =
-    () => async (dispatch: AppDispatch, getState: () => RootState) => {
-        const { userLogin } = getState();
-        try {
-            dispatch({ type: CREATE_ORDER_REQUSET });
-            const config = {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${userLogin.userInfo?.token}`,
-                },
-            };
+import baseRoute from "../../api/baseRoute";
 
-            const { data } = await axios.post(
-                `${BACKEND_API}/orders`,
-                JSON.parse(localStorage.getItem("shippingData") as string),
-                config
-            );
-            dispatch({ type: CREATE_ORDER_SUCCESS, payload: data });
+export const createOrder = () => async (dispatch: AppDispatch) => {
+    try {
+        dispatch({ type: CREATE_ORDER_REQUSET });
 
-            // remove cart from localStorage and redux
-            localStorage.removeItem("cartItems");
-            dispatch({ type: RESET_CART });
-        } catch (error: errorInterface) {
-            dispatch({
-                type: CREATE_ORDER_FAIL,
-                payload:
-                    error.response && error.response.data.message
-                        ? error.response.data.message
-                        : error.message,
-            });
-        }
-    };
+        const { data } = await baseRoute.post(
+            `/orders`,
+            JSON.parse(localStorage.getItem("shippingData") as string)
+        );
+        dispatch({ type: CREATE_ORDER_SUCCESS, payload: data });
+
+        // remove cart from localStorage and redux
+        localStorage.removeItem("cartItems");
+        dispatch({ type: RESET_CART });
+    } catch (error: errorInterface) {
+        dispatch({
+            type: CREATE_ORDER_FAIL,
+            payload:
+                error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message,
+        });
+    }
+};
 
 export const getMyOrders =
     (page = 1) =>
-    async (dispatch: AppDispatch, getState: () => RootState) => {
-        const { userLogin } = getState();
+    async (dispatch: AppDispatch) => {
         try {
             dispatch({ type: GET_MY_ORDERS_REQUSET });
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${userLogin.userInfo?.token}`,
-                },
-            };
 
-            const { data } = await axios.get(
-                `${BACKEND_API}/orders/myorders?page=${page}`,
-                config
+            const { data } = await baseRoute.get(
+                `/orders/myorders?page=${page}`
             );
             dispatch({ type: GET_MY_ORDERS_SUCCESS, payload: data });
         } catch (error: errorInterface) {
@@ -88,21 +72,10 @@ export const getMyOrders =
     };
 
 export const getOrderByOrderId =
-    (id: string) =>
-    async (dispatch: AppDispatch, getState: () => RootState) => {
-        const { userLogin } = getState();
+    (id: string) => async (dispatch: AppDispatch) => {
         try {
             dispatch({ type: GET_ORDER_BY_ORDER_ID_REQUSET });
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${userLogin.userInfo?.token}`,
-                },
-            };
-
-            const { data } = await axios.get(
-                `${BACKEND_API}/orders/${id}`,
-                config
-            );
+            const { data } = await baseRoute.get(`/orders/${id}`);
             dispatch({ type: GET_ORDER_BY_ORDER_ID_SUCCESS, payload: data });
         } catch (error: errorInterface) {
             dispatch({
@@ -116,21 +89,13 @@ export const getOrderByOrderId =
     };
 
 export const createCheckoutSession =
-    (id: string) =>
-    async (dispatch: AppDispatch, getState: () => RootState) => {
-        const { userLogin } = getState();
+    (id: string) => async (dispatch: AppDispatch) => {
         try {
             dispatch({ type: CREATE_CHECKOUT_SESSION_REQUSET });
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${userLogin.userInfo?.token}`,
-                },
-            };
 
-            const { data } = await axios.post(
-                `${BACKEND_API}/orders/${id}/create-checkout-session`,
-                {},
-                config
+            const { data } = await baseRoute.post(
+                `/orders/${id}/create-checkout-session`,
+                { id }
             );
             dispatch({ type: CREATE_CHECKOUT_SESSION_SUCCESS, payload: data });
         } catch (error: errorInterface) {
@@ -145,21 +110,13 @@ export const createCheckoutSession =
     };
 
 export const updateOrderToPaid =
-    (id: string, process: string) =>
-    async (dispatch: AppDispatch, getState: () => RootState) => {
-        const { userLogin } = getState();
+    (id: string, process: string) => async (dispatch: AppDispatch) => {
         try {
             dispatch({ type: UPDATE_ORDER_TO_PAID_REQUSET });
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${userLogin.userInfo?.token}`,
-                },
-            };
 
-            const { data } = await axios.patch(
-                `${BACKEND_API}/orders/${id}/pay/${process}`,
-                {},
-                config
+            const { data } = await baseRoute.patch(
+                `/orders/${id}/pay/${process}`,
+                { id }
             );
             dispatch({ type: UPDATE_ORDER_TO_PAID_SUCCESS, payload: data });
         } catch (error: errorInterface) {
@@ -174,22 +131,12 @@ export const updateOrderToPaid =
     };
 
 export const updateOrderToDelivered =
-    (id: string) =>
-    async (dispatch: AppDispatch, getState: () => RootState) => {
-        const { userLogin } = getState();
+    (id: string) => async (dispatch: AppDispatch) => {
         try {
             dispatch({ type: UPDATE_ORDER_TO_DELIVERED_REQUSET });
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${userLogin.userInfo?.token}`,
-                },
-            };
-
-            const { data } = await axios.patch(
-                `${BACKEND_API}/orders/${id}/deliver`,
-                {},
-                config
-            );
+            const { data } = await baseRoute.patch(`/orders/${id}/deliver`, {
+                id,
+            });
             dispatch({
                 type: UPDATE_ORDER_TO_DELIVERED_SUCCESS,
                 payload: data,

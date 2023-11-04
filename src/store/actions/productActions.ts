@@ -1,5 +1,3 @@
-import axios from "axios";
-
 import {
     ALL_PRODUCTS_REQUSET,
     ALL_PRODUCTS_SUCCESS,
@@ -29,9 +27,9 @@ import {
     errorInterface,
     FilterDateInterface,
 } from "../../interfaces/components/public";
-import { RootState, AppDispatch } from "../store";
+import { AppDispatch } from "../store";
 
-const BACKEND_API = process.env.REACT_APP_API_URL;
+import baseRoute from "../../api/baseRoute";
 
 export const GetAllProducts =
     (
@@ -42,8 +40,8 @@ export const GetAllProducts =
     async (dispatch: AppDispatch) => {
         try {
             dispatch({ type: ALL_PRODUCTS_REQUSET });
-            const { data } = await axios.get(
-                `${BACKEND_API}/products?${
+            const { data } = await baseRoute.get(
+                `/products?${
                     filterData
                         ? `filterData=${JSON.stringify(filterData)}&`
                         : ""
@@ -64,7 +62,7 @@ export const GetAllProducts =
 export const productDetails = (id: string) => async (dispatch: AppDispatch) => {
     try {
         dispatch({ type: PRODUCT_DETAILS_REQUSET });
-        const { data } = await axios.get(`${BACKEND_API}/products/${id}`);
+        const { data } = await baseRoute.get(`/products/${id}`);
         dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data.product });
     } catch (error: errorInterface) {
         dispatch({
@@ -79,19 +77,12 @@ export const productDetails = (id: string) => async (dispatch: AppDispatch) => {
 
 export const myProducts =
     (page = 1) =>
-    async (dispatch: AppDispatch, getState: () => RootState) => {
-        const { userLogin } = getState();
+    async (dispatch: AppDispatch) => {
         try {
             dispatch({ type: MY_PRODUCTS_REQUEST });
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${userLogin.userInfo?.token}`,
-                },
-            };
 
-            const { data } = await axios.get(
-                `${BACKEND_API}/products/myProducts/all?page=${page}`,
-                config
+            const { data } = await baseRoute.get(
+                `/products/myProducts/all?page=${page}`
             );
             dispatch({ type: MY_PRODUCTS_SUCCESS, payload: data });
         } catch (error: errorInterface) {
@@ -106,23 +97,11 @@ export const myProducts =
     };
 
 export const createProduct =
-    (formData: object) =>
-    async (dispatch: AppDispatch, getState: () => RootState) => {
-        const { userLogin } = getState();
+    (formData: object) => async (dispatch: AppDispatch) => {
         try {
             dispatch({ type: CREATE_PRODUCT_REQUEST });
-            const config = {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                    Authorization: `Bearer ${userLogin.userInfo?.token}`,
-                },
-            };
 
-            const { data } = await axios.post(
-                `${BACKEND_API}/products`,
-                formData,
-                config
-            );
+            const { data } = await baseRoute.post(`/products`, formData);
             dispatch({ type: CREATE_PRODUCT_SUCCESS, payload: data });
         } catch (error: errorInterface) {
             dispatch({
@@ -136,22 +115,13 @@ export const createProduct =
     };
 
 export const editProduct =
-    (productId: string, formData: object) =>
-    async (dispatch: AppDispatch, getState: () => RootState) => {
-        const { userLogin } = getState();
+    (productId: string, formData: object) => async (dispatch: AppDispatch) => {
         try {
             dispatch({ type: EDIT_MY_PRODUCTS_REQUEST });
-            const config = {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                    Authorization: `Bearer ${userLogin.userInfo?.token}`,
-                },
-            };
 
-            const { data } = await axios.patch(
-                `${BACKEND_API}/products/updateMyProduct/${productId}`,
-                formData,
-                config
+            const { data } = await baseRoute.patch(
+                `/products/updateMyProduct/${productId}`,
+                formData
             );
             dispatch({ type: EDIT_MY_PRODUCTS_SUCCESS, payload: data.product });
         } catch (error: errorInterface) {
@@ -166,20 +136,12 @@ export const editProduct =
     };
 
 export const deleteProduct =
-    (productId: string) =>
-    async (dispatch: AppDispatch, getState: () => RootState) => {
-        const { userLogin } = getState();
+    (productId: string) => async (dispatch: AppDispatch) => {
         try {
             dispatch({ type: DELETE_MY_PRODUCTS_REQUEST });
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${userLogin.userInfo?.token}`,
-                },
-            };
 
-            const { data } = await axios.delete(
-                `${BACKEND_API}/products/deletetMyProduct/${productId}`,
-                config
+            const { data } = await baseRoute.delete(
+                `/products/deletetMyProduct/${productId}`
             );
             dispatch({
                 type: DELETE_MY_PRODUCTS_SUCCESS,
@@ -201,8 +163,8 @@ export const getTopRatedBestSaleProducts =
         try {
             dispatch({ type: TOP_RATED_BEST_SALE_PRODUCTS_REQUEST });
 
-            const { data } = await axios.get(
-                `${BACKEND_API}/products/topRated&bestSale_Products`
+            const { data } = await baseRoute.get(
+                `/products/topRated&bestSale_Products`
             );
             dispatch({
                 type: TOP_RATED_BEST_SALE_PRODUCTS_SUCCESS,

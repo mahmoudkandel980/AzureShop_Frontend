@@ -1,5 +1,3 @@
-import axios from "axios";
-
 import {
     USER_SIGNUP_REQUEST,
     USER_SIGNUP_SUCCESS,
@@ -47,16 +45,13 @@ import { RootState, AppDispatch } from "../store";
 import { ProductStateInterface } from "../../interfaces/store/product/productInterface";
 import { CartItems } from "../../interfaces/store/cart/cartInterface";
 
-const BACKEND_API = process.env.REACT_APP_API_URL;
+import baseRoute from "../../api/baseRoute";
 
 export const signup =
     (name: string, email: string, password: string, passwordConfirm: string) =>
     async (dispatch: AppDispatch) => {
         try {
             dispatch({ type: USER_SIGNUP_REQUEST });
-            const config = {
-                headers: { "Content-Type": "application/json" },
-            };
 
             const wishListIds = localStorage.getItem("wishListItems")
                 ? JSON.parse(
@@ -73,18 +68,14 @@ export const signup =
                   )
                 : [];
 
-            const { data } = await axios.post(
-                `${BACKEND_API}/users/signup`,
-                {
-                    name,
-                    email,
-                    password,
-                    passwordConfirm,
-                    wishListIds,
-                    cartData,
-                },
-                config
-            );
+            const { data } = await baseRoute.post(`/users/signup`, {
+                name,
+                email,
+                password,
+                passwordConfirm,
+                wishListIds,
+                cartData,
+            });
             dispatch({ type: USER_SIGNUP_SUCCESS, payload: data });
 
             // userInfo (Dispatch Login)
@@ -130,9 +121,6 @@ export const login =
     (email: string, password: string) => async (dispatch: AppDispatch) => {
         try {
             dispatch({ type: USER_LOGIN_REQUEST });
-            const config = {
-                headers: { "Content-Type": "application/json" },
-            };
 
             const wishListIds = localStorage.getItem("wishListItems")
                 ? JSON.parse(
@@ -149,11 +137,12 @@ export const login =
                   )
                 : [];
 
-            const { data } = await axios.post(
-                `${BACKEND_API}/users/login`,
-                { email, password, wishListIds, cartData },
-                config
-            );
+            const { data } = await baseRoute.post(`/users/login`, {
+                email,
+                password,
+                wishListIds,
+                cartData,
+            });
             dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
 
             // WishList (Dispatch, update localStorage)
@@ -209,10 +198,7 @@ export const getUserDetailsById =
     (id: string, page: number) => async (dispatch: AppDispatch) => {
         try {
             dispatch({ type: USER_DETAILS_REQUEST });
-
-            const { data } = await axios.get(
-                `${BACKEND_API}/users/${id}?page=${page}`
-            );
+            const { data } = await baseRoute.get(`/users/${id}?page=${page}`);
             dispatch({ type: USER_DETAILS_SUCCESS, payload: data });
         } catch (error: errorInterface) {
             dispatch({
@@ -229,17 +215,10 @@ export const forgetPassword =
     (email: string) => async (dispatch: AppDispatch) => {
         try {
             dispatch({ type: USER_FORGET_PASSWORD_REQUEST });
-            const config = {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            };
 
-            const { data } = await axios.post(
-                `${BACKEND_API}/users/forgotPassword`,
-                { email },
-                config
-            );
+            const { data } = await baseRoute.post(`/users/forgotPassword`, {
+                email,
+            });
             dispatch({
                 type: USER_FORGET_PASSWORD_SUCCESS,
                 payload: data.message,
@@ -260,16 +239,10 @@ export const resetPassword =
     async (dispatch: AppDispatch) => {
         try {
             dispatch({ type: USER_RESET_PASSWORD_REQUEST });
-            const config = {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            };
 
-            const { data } = await axios.patch(
-                `${BACKEND_API}/users/resetPassword/${token}`,
-                { password, passwordConfirm },
-                config
+            const { data } = await baseRoute.patch(
+                `/users/resetPassword/${token}`,
+                { password, passwordConfirm }
             );
             dispatch({ type: USER_RESET_PASSWORD_SUCCESS, payload: data });
         } catch (error: errorInterface) {
@@ -288,17 +261,8 @@ export const profile =
         const { userLogin } = getState();
         try {
             dispatch({ type: PROFILE_REQUEST });
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${userLogin.userInfo?.token}`,
-                },
-            };
 
-            const { data } = await axios.get(
-                `${BACKEND_API}/users/profile`,
-                config
-            );
-
+            const { data } = await baseRoute.get(`/users/profile`);
             const newUserDate = { ...userLogin.userInfo, ...data.user };
 
             dispatch({ type: USER_LOGIN_SUCCESS, payload: newUserDate });
@@ -315,82 +279,51 @@ export const profile =
         }
     };
 
-export const updateMe =
-    (formData: object) =>
-    async (dispatch: AppDispatch, getState: () => RootState) => {
-        const { userLogin } = getState();
-        try {
-            dispatch({ type: UPDATE_ME_REQUEST });
-            const config = {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                    Authorization: `Bearer ${userLogin.userInfo?.token}`,
-                },
-            };
+export const updateMe = (formData: object) => async (dispatch: AppDispatch) => {
+    try {
+        dispatch({ type: UPDATE_ME_REQUEST });
 
-            const { data } = await axios.patch(
-                `${BACKEND_API}/users/updateMe`,
-                formData,
-                config
-            );
-            dispatch({ type: UPDATE_ME_SUCCESS, payload: data.user });
-        } catch (error: errorInterface) {
-            dispatch({
-                type: UPDATE_ME_FAIL,
-                payload:
-                    error.response && error.response.data.message
-                        ? error.response.data.message
-                        : error.message,
-            });
-        }
-    };
+        const { data } = await baseRoute.patch(`/users/updateMe`, formData);
+        dispatch({ type: UPDATE_ME_SUCCESS, payload: data.user });
+    } catch (error: errorInterface) {
+        dispatch({
+            type: UPDATE_ME_FAIL,
+            payload:
+                error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message,
+        });
+    }
+};
 
-export const deleteMe =
-    () => async (dispatch: AppDispatch, getState: () => RootState) => {
-        const { userLogin } = getState();
-        try {
-            dispatch({ type: DELETE_ME_REQUEST });
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${userLogin.userInfo?.token}`,
-                },
-            };
+export const deleteMe = () => async (dispatch: AppDispatch) => {
+    try {
+        dispatch({ type: DELETE_ME_REQUEST });
 
-            const { data } = await axios.patch(
-                `${BACKEND_API}/users/deletetMe`,
-                {},
-                config
-            );
-            dispatch({ type: DELETE_ME_SUCCESS, payload: data.user });
-        } catch (error: errorInterface) {
-            dispatch({
-                type: DELETE_ME_FAIL,
-                payload:
-                    error.response && error.response.data.message
-                        ? error.response.data.message
-                        : error.message,
-            });
-        }
-    };
+        const { data } = await baseRoute.patch(`/users/deletetMe`, {});
+        dispatch({ type: DELETE_ME_SUCCESS, payload: data.user });
+    } catch (error: errorInterface) {
+        dispatch({
+            type: DELETE_ME_FAIL,
+            payload:
+                error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message,
+        });
+    }
+};
 
 export const changePassword =
     (currentPassword: string, newPassword: string, passwordConfirm: string) =>
-    async (dispatch: AppDispatch, getState: () => RootState) => {
-        const { userLogin } = getState();
+    async (dispatch: AppDispatch) => {
         try {
             dispatch({ type: CHANGE_USER_PASSWORD_REQUEST });
-            const config = {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${userLogin.userInfo?.token}`,
-                },
-            };
 
-            const { data } = await axios.patch(
-                `${BACKEND_API}/users/updatePassword`,
-                { currentPassword, newPassword, passwordConfirm },
-                config
-            );
+            const { data } = await baseRoute.patch(`/users/updatePassword`, {
+                currentPassword,
+                newPassword,
+                passwordConfirm,
+            });
             dispatch({ type: CHANGE_USER_PASSWORD_SUCCESS, payload: data });
 
             dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
